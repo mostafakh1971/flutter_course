@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/home_screen.dart';
-import 'package:flutter_course/second_screen.dart';
+
 import 'package:flutter_course/login_screen.dart';
+import 'package:flutter_course/messenger_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: false,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: MessengerScreen(),
     );
   }
 }
