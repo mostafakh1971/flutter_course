@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course/messenger_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_course/cubit/counter_cubit.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  bool isScure = true;
-  var icon = Icons.visibility;
-  var formKey = GlobalKey<FormState>();
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login Screen"),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Form(
-          key: formKey,
-          child: SingleChildScrollView(
+    return BlocConsumer<CounterCubit, CounterState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var controller = CounterCubit().get(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Brand"),
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            centerTitle: true,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
                 Container(
@@ -42,14 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 15,
                 ),
                 TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "email field is required";
-                    }
-                    if (!(value.contains('@'))) {
-                      return "Invalid email";
-                    }
-                  },
                   decoration: InputDecoration(
                       hintText: "example@gmail.com",
                       label: const Text("Email"),
@@ -61,27 +45,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 15,
                 ),
                 TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "password field is required";
-                    }
-                    // if (value.length < 8) {
-                    //   return "Password must be at least 8 charachters";
-                    // }
-                  },
-                  obscureText: isScure,
+                  obscureText: controller.isScure,
                   obscuringCharacter: '*',
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.lock),
                       suffixIcon: IconButton(
-                        icon: Icon(icon),
+                        icon: Icon(controller.icon),
                         onPressed: () {
-                          setState(() {
-                            isScure = !isScure;
-                            isScure
-                                ? icon = Icons.visibility
-                                : icon = Icons.visibility_off;
-                          });
+                          controller.changeScure();
                         },
                       ),
                       hintText: "P@ssw0rd",
@@ -96,18 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black)),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MessengerScreen(),
-                        ));
-                        // Navigator.of(context).pushAndRemoveUntil(
-                        //     MaterialPageRoute(
-                        //       builder: (context) => MessengerScreen(),
-                        //     ),
-                        //     (route) => false);
-                      }
-                    },
+                    onPressed: () {},
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: const Padding(
@@ -134,8 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
