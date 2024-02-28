@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_course/utils/cache.dart';
 import 'package:flutter_course/utils/dio_helper.dart';
 import 'package:flutter_course/models/news_model.dart';
 import 'package:meta/meta.dart';
@@ -85,9 +86,10 @@ class AppCubit extends Cubit<AppState> {
     emit(GetWebviewState());
   }
 
-  bool isDark = false;
+  bool isDark = CacheHelper.get(key: "isDark") ?? false;
   changeThemeMode() {
     isDark = !isDark;
+    CacheHelper.setBool(key: "isDark", value: isDark);
     emit(ChangeThemeModeState());
   }
 }

@@ -39,6 +39,7 @@ dependencies:
   dio: ^5.4.1
   buildcondition: ^0.0.4
   url_launcher: ^6.2.4
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
 

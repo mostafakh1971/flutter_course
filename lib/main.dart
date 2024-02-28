@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_course/cubit/app_cubit.dart';
+import 'package:flutter_course/utils/cache.dart';
 
 import 'package:flutter_course/utils/dio_helper.dart';
 
 import 'package:flutter_course/screens/news_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
   DioHelper.init();
   runApp(const MyApp());
 }
